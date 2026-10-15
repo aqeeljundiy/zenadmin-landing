@@ -1259,6 +1259,89 @@ html{scrollbar-gutter:stable}
   .pm-was small{display:block;margin-top:6px;font-size:13px;color:var(--muted);line-height:1.4}
   .pm-res{display:inline-flex;align-items:center;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--ok);background:var(--ok-soft);padding:4px 10px;border-radius:999px}
 }
+
+/* ===== phones: scroll-only, fully explanatory ===== */
+.mod-static{display:none}
+@media (max-width:720px){
+  /* how it works: all steps open */
+  #lifeDemo .pinbox{display:none}
+  #lifeDemo .tab{opacity:1;cursor:default;border-color:var(--line);box-shadow:none}
+  #lifeDemo .tab .ic{background:var(--accent);color:#fff;border-color:var(--accent)}
+  #lifeDemo .tab .when{display:block;grid-column:2;font-size:12px}
+  #lifeDemo .tab h3{grid-row:auto;color:var(--ink)!important}
+  #lifeDemo .tab p,#lifeDemo .tab>.scene{max-height:none!important;opacity:1!important;margin-top:10px;overflow:visible}
+  #lifeDemo .tab>.scene{margin-top:14px}
+  #lifeDemo .tab .nextstep{display:none!important}
+  #lifeDemo .tab>.scene:not(.on) .in{opacity:1}
+  /* services: checklist instead of toggles */
+  .mods{display:none!important}
+  .mod-static{display:block}
+  .mod-static ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .mod-static li{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:start;padding:14px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+  .ms-ic{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .mod-static b{display:block;font-size:15.5px;font-weight:600}
+  .mod-static small{display:block;margin-top:3px;font-size:13.5px;color:var(--muted);line-height:1.4}
+  .ms-tag{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .ms-tag.inc{background:var(--accent-soft);color:var(--accent)}
+  .ms-tag.opt{background:var(--tint);color:var(--muted);border:1px solid var(--line)}
+  .ms-note{margin-top:14px;font-size:14px;color:var(--ink-2);padding:12px 14px;border-radius:14px;background:var(--tint)}
+  /* comparison: ZenAdmin, then all three alternatives, no switch */
+  .cmp-pick,.cmp-legend{display:none!important}
+  .cmp-t [data-c]{display:block!important;animation:none!important}
+  .cmp-t tr{grid-template-columns:repeat(3,1fr)!important;gap:6px}
+  .cmp-t tbody th{grid-column:1/-1}
+  .cmp-t td.zen{grid-column:1/-1;display:flex!important;align-items:center;gap:6px;font-size:14px}
+  .cmp-t td::before{display:block!important;content:attr(data-l);font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;line-height:1.25}
+  .cmp-t td.zen::before{display:inline!important;margin:0 6px 0 0;color:var(--accent)}
+  .cmp-t td[data-c]{font-size:12px;line-height:1.35;padding:8px!important}
+  .cmp-t td[data-c] i{width:14px;height:14px;display:block;margin:0 0 4px}
+  .cmp-t td[data-c] i.y::after{left:4px;top:2px;width:3px;height:7px}
+  .cmp-t td[data-c] i.n::after{left:3px;top:6px;width:7px}
+  /* stacks instead of sideways swipes */
+  .swipe{display:flex!important;flex-direction:column;overflow:visible!important;margin-inline:0!important;padding:0!important;gap:12px;scroll-snap-type:none}
+  .swipe>*{flex:none!important;width:auto}
+  .sdots-m{display:none!important}
+  .ints{flex-wrap:wrap!important;overflow:visible!important;margin-inline:0!important;padding:0!important;-webkit-mask-image:none;mask-image:none;gap:8px}
+  /* FAQ open: no chevron needed */
+  .faq summary{cursor:default}
+  .faq summary::after{display:none}
+}
+
+@media (max-width:720px){#lifeDemo .tab>.scene .win{display:block!important}#lifeDemo .tab>.scene .route{display:block!important}#lifeDemo .tab>.scene{gap:10px}}
+
+/* comparison: a real table on phones too, icons only */
+.cmp-t .sh{display:none}
+@media (max-width:720px){
+  .cmp-scroll{overflow:visible!important;border:1px solid var(--line)!important;border-radius:18px!important;background:#fff!important;box-shadow:0 20px 40px -34px rgba(25,22,83,.45)!important}
+  .cmp-t{display:table!important;width:100%;table-layout:fixed;min-width:0!important;border-collapse:collapse}
+  .cmp-t thead{display:table-header-group!important}
+  .cmp-t tbody{display:table-row-group!important}
+  .cmp-t tr{display:table-row!important;margin:0!important;padding:0!important;border:0!important;background:none!important;border-radius:0!important}
+  .cmp-t th,.cmp-t td{display:table-cell!important;padding:10px 4px!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;vertical-align:middle;text-align:center;background:none}
+  .cmp-t tr:last-child>*{border-bottom:0!important}
+  .cmp-t tbody th{width:38%;text-align:left;padding:12px 8px 12px 12px!important;font-size:13px;line-height:1.3;font-weight:600}
+  .cmp-t thead th{font-size:10.5px;line-height:1.2;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);padding:12px 4px!important;background:var(--tint)}
+  .cmp-t thead th:first-child{text-align:left;padding-left:12px!important}
+  .cmp-t thead .zen{background:var(--accent)!important;color:#fff}
+  .cmp-t .lg{display:none}.cmp-t .sh{display:inline}
+  .cmp-t td{font-size:0!important;line-height:0}
+  .cmp-t td::before{display:none!important}
+  .cmp-t td i{display:inline-block!important;width:20px!important;height:20px!important;margin:0!important;vertical-align:middle}
+  .cmp-t td i.y::after{left:6px!important;top:3px!important;width:5px!important;height:9px!important}
+  .cmp-t td i.n::after{left:5px!important;top:9px!important;width:10px!important}
+  .cmp-t td.zen{background:var(--accent-soft)!important;display:table-cell!important}
+  .cmp-note{justify-content:center}
+}
+
+@media (max-width:720px){
+  .cmp-t td[data-c],.cmp-t th[data-c]{display:table-cell!important}
+  .cmp-t td.zen::before,.cmp-t td::before{content:none!important;display:none!important}
+  .cmp-t td.zen{display:table-cell!important}
+  .cmp-t thead th:first-child,.cmp-t tbody th{width:34%}
+  .cmp-t thead th:not(:first-child){width:16.5%}
+}
+
+@media (max-width:720px){.cmp{display:flex;flex-direction:column}.cmp-scroll{order:1}.cmp-note{order:2;margin:12px 0 4px}.cmp-cta{order:3}}
 </style>
 </head>
 <body>
@@ -1467,6 +1550,7 @@ html{scrollbar-gutter:stable}
       <div><p class="eyebrow">Pick your services</p><h2>Use only the services you need</h2></div>
       <p>Already own your devices? Keep them. Most teams start with tracking and returns, then add more later. Switch services on and off to see who does what.</p>
     </div>
+    <div class="mod-static" id="modStatic"></div>
     <div class="mods sr">
       <div class="mod-list" id="modList"></div>
       <div class="mod-flow">
@@ -1488,7 +1572,7 @@ html{scrollbar-gutter:stable}
       </div>
       <div class="cmp-legend" aria-hidden="true"><span>ZenAdmin</span><span id="cmpThem">Spreadsheets</span></div>
       <div class="cmp-scroll"><table class="cmp-t">
-        <thead><tr><th scope="col">What you need</th><th scope="col" class="zen">ZenAdmin</th><th scope="col" data-c="1">Spreadsheets or Snipe-IT</th><th scope="col" data-c="2">HR platform add-on</th><th scope="col" data-c="3">Shipping-only vendor</th></tr></thead>
+        <thead><tr><th scope="col">What you need</th><th scope="col" class="zen"><span class="lg">ZenAdmin</span><span class="sh">Zen</span></th><th scope="col" data-c="1"><span class="lg">Spreadsheets or Snipe-IT</span><span class="sh">Sheets</span></th><th scope="col" data-c="2"><span class="lg">HR platform add-on</span><span class="sh">HR add-on</span></th><th scope="col" data-c="3"><span class="lg">Shipping-only vendor</span><span class="sh">Shipping only</span></th></tr></thead>
         <tbody>
           <tr><th scope="row">One live register of every device</th><td class="zen"><i class="y"></i>Synced with HR and MDM</td><td data-c="1"><i class="p"></i>Updated by hand</td><td data-c="2"><i class="y"></i>For its own users</td><td data-c="3"><i class="p"></i>Only devices they shipped</td></tr>
           <tr><th scope="row">Courier pickup in the leaver's country</th><td class="zen"><i class="y"></i>Booked for you</td><td data-c="1"><i class="n"></i>You arrange it</td><td data-c="2"><i class="p"></i>Varies by region</td><td data-c="3"><i class="y"></i>Yes</td></tr>
@@ -1907,6 +1991,7 @@ html{scrollbar-gutter:stable}
     label();
   })();
 
+
   /* problem -> outcome */
   const POD=[
     {q:'“We lease in the EU and US, buy outright in APAC, and someone in Brazil just orders online.”',m:['3 leasing contracts','Local buyers in APAC','Ad hoc web orders in LatAm'],h:'One contract to buy or lease in every region',p:'Order approved models at local prices across the EU, US, UK, APAC and LatAm. Or skip buying and keep the devices you have.',r:'1 contract instead of 4'},
@@ -2065,6 +2150,19 @@ html{scrollbar-gutter:stable}
     size();draw();addEventListener('resize',()=>{size();if(reduce)draw();});
   }
 
+
+  /* ===== phones: everything readable by scrolling, nothing to tap ===== */
+  const phone=matchMedia('(max-width:720px)');
+  // services as a plain checklist
+  $('modStatic').innerHTML='<ul>'+MODS.map(m=>'<li><span class="ms-ic">✓</span><div><b>'+m.t+'</b><small>'+m.d+'</small></div><span class="ms-tag '+(m.lock?'inc':'opt')+'">'+(m.lock?'Included':'Optional')+'</span></li>').join('')+'</ul><p class="ms-note">Pick any mix on the demo call. Tracking is the base for everything else.</p>';
+  // FAQ answers open on phones
+  if(phone.matches)document.querySelectorAll('.faq details').forEach(d=>d.open=true);
+  // how it works: every step open; each step's animation plays when it scrolls into view
+  if(phone.matches&&'IntersectionObserver' in window){
+    const stepIO=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target,sc=t.querySelector('.scene');
+      if(sc&&!sc.dataset.played){sc.dataset.played=1;sc.classList.remove('on');void sc.offsetWidth;sc.classList.add('on');}}),{threshold:.35});
+    tabs.forEach(t=>stepIO.observe(t));
+  }
 
 })();
 </script>
