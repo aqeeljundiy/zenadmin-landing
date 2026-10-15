@@ -1238,6 +1238,27 @@ html{scrollbar-gutter:stable}
 }
 
 @media (max-width:720px){.tbl-box{min-height:340px}}
+
+/* phones: problems as a plain scannable list, nothing to tap */
+.pm-list{display:none}
+@media (max-width:720px){
+  .po{display:none!important}
+  .pm-list{display:flex;flex-direction:column;gap:14px}
+  .pm{border-radius:20px;border:1px solid var(--line);background:#fff;overflow:hidden;box-shadow:0 14px 30px -26px rgba(25,22,83,.45)}
+  .pm-was,.pm-fix{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:16px 16px}
+  .pm-was{background:var(--tint)}
+  .pm-fix{position:relative;border-top:1px dashed var(--line-2)}
+  .pm-fix::before{content:"";position:absolute;left:29px;top:-9px;width:16px;height:16px;border-radius:50%;background:#fff;border:1px solid var(--line-2);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 4v8M5 9l3 3 3-3' fill='none' stroke='%23254DDA' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:14px;background-repeat:no-repeat;background-position:center}
+  .pm-ic{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700}
+  .pm-ic.x{background:#FDECEC;color:var(--bad)}
+  .pm-ic.ok{background:var(--accent);color:#fff}
+  .pm-k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .pm-fix .pm-k{color:var(--accent)}
+  .pm b{display:block;font-size:16px;line-height:1.3;font-weight:600;color:var(--ink)}
+  .pm-was b{color:var(--ink-2)}
+  .pm-was small{display:block;margin-top:6px;font-size:13px;color:var(--muted);line-height:1.4}
+  .pm-res{display:inline-flex;align-items:center;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--ok);background:var(--ok-soft);padding:4px 10px;border-radius:999px}
+}
 </style>
 </head>
 <body>
@@ -1317,9 +1338,10 @@ html{scrollbar-gutter:stable}
   <section class="block wrap" id="pains">
     <div class="sec-head sr">
       <div><p class="eyebrow">Sound familiar?</p><h2>Where IT assets get lost today</h2></div>
-      <p>Six problems IT and finance leads told us about this year. Pick one to see how it changes with ZenAdmin.</p>
+      <p>Six problems IT and finance leads told us about this year, and what changes with ZenAdmin.</p>
     </div>
     <div class="stat-band sr"><b class="num">71%</b><p>of HR teams that offboarded someone last year had at least one leaver who didn't return equipment. Remote staff were 17% more likely not to. <small>Source: Capterra offboarding survey</small></p></div>
+    <div class="pm-list" id="pmList" aria-label="Problems and how ZenAdmin fixes them"></div>
     <div class="po sr" id="po">
       <p class="po-hint"><span></span>Tap a problem to see the fix</p>
       <div class="po-list" role="tablist" aria-label="Problems">
@@ -1904,6 +1926,7 @@ html{scrollbar-gutter:stable}
   poNext();
   poBtns.forEach((b,i)=>b.addEventListener('click',()=>{poI=i;poWrap.classList.add('picked');poShow(i);poNext();if(innerWidth<=720)b.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest',inline:'center'});}));
   poShow(0);
+  $('pmList').innerHTML=POD.map((d,i)=>'<article class="pm"><div class="pm-was"><span class="pm-ic x" aria-hidden="true">✕</span><div><p class="pm-k">Today</p><b>'+poBtns[i].querySelector('span').textContent+'</b><small>'+d.m.join(' · ')+'</small></div></div><div class="pm-fix"><span class="pm-ic ok" aria-hidden="true">✓</span><div><p class="pm-k">With ZenAdmin</p><b>'+d.h+'</b><span class="pm-res">'+d.r+'</span></div></div></article>').join('');
   /* service picker */
   const MODS=[
     {k:'buy',t:'Buy or lease devices',d:'Optional. Order from our catalog, or keep buying from your own vendor.',on:true},
