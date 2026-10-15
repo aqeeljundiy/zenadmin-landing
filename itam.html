@@ -1195,6 +1195,10 @@ button,input,select{font-family:var(--f)}
 
 .po>.po-hint{grid-column:1/-1}
 .po{row-gap:12px}
+
+/* opening the popup must not shift the page: keep the scrollbar space */
+html{scrollbar-gutter:stable}
+.bk.open~*,body.bk-lock{overflow:hidden}
 </style>
 </head>
 <body>
@@ -1791,7 +1795,7 @@ button,input,select{font-family:var(--f)}
     const winEl=demoEl.querySelector('.win-app');winEl.style.position='relative';winEl.appendChild(cur);
     let run=0, visible=false; window.__auto=!reduce;
     const wait=ms=>new Promise(r=>setTimeout(r,ms));
-    const onScreen=()=>{const b=demoEl.getBoundingClientRect();return b.top<innerHeight*.9&&b.bottom>innerHeight*.2;};
+    const onScreen=()=>{if(document.getElementById('bk').classList.contains('open'))return false;const b=demoEl.getBoundingClientRect();return b.top<innerHeight*.9&&b.bottom>innerHeight*.2;};
     const whenVisible=()=>new Promise(r=>{const t=()=>{visible=onScreen();cur.classList.toggle('hide',!visible);visible?r():setTimeout(t,250);};t();});
     const label=()=>{lbl.textContent=window.__auto?'Playing demo · tap to take over':'Try the sample app';demoEl.classList.toggle('auto',window.__auto);};
     async function moveTo(q){const el=document.querySelector(q);if(!el)return null;
