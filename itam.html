@@ -1590,7 +1590,9 @@ html{scrollbar-gutter:stable}
     document.querySelectorAll('.as,.po-t,.faq details,.cmp-t tbody tr,.ints span,.upsell .card,.feat .card,.quotes blockquote,.mod-flow,.stat-band,.cmp-cta').forEach(el=>el.classList.add('sr'));
     document.querySelectorAll('.sr').forEach(el=>{const sib=[...el.parentElement.children].filter(x=>x.classList.contains('sr'));const i=sib.indexOf(el);el.style.setProperty('--sd',(Math.min(i,6)*80)+'ms');});
     const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
-    document.querySelectorAll('.sr').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el);}});
+    /* items inside a sideways-scrolling row never 'enter' the viewport, so they must not start hidden */
+    const inRow=el=>{const p=el.closest('.swipe,.po-list,.ints,.marquee');return p&&getComputedStyle(p).overflowX!=='visible';};
+    document.querySelectorAll('.sr').forEach(el=>{if(inRow(el))return;if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el);}});
   }
 
   /* SVG flags: emoji flags don't render on Windows */
