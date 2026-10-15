@@ -1199,6 +1199,45 @@ button,input,select{font-family:var(--f)}
 /* opening the popup must not shift the page: keep the scrollbar space */
 html{scrollbar-gutter:stable}
 .bk.open~*,body.bk-lock{overflow:hidden}
+
+/* ===== phones: no scroll-inside-scroll, more breathing room ===== */
+@media (max-width:720px){
+  /* demo list never captures the page scroll */
+  .tbl-box{height:auto!important;overflow:hidden!important;-webkit-mask-image:none;mask-image:none;padding-bottom:0!important;overscroll-behavior:auto}
+  .tbl .trow:nth-of-type(n+5){display:none}
+  .endnote{padding:10px 0 2px}
+  .demo-app.auto .drawer-app{overscroll-behavior:auto}
+  /* spacing */
+  section.block{padding-block:84px}
+  #pains{padding-top:72px}
+  .sec-head{margin-bottom:30px;gap:12px}
+  .sec-head h2,.faq-side h2{line-height:1.12}
+  .assets-band{padding-block:48px 8px}
+  .assets-band .eyebrow{margin-bottom:20px}
+  .assets{gap:10px}
+  .hero-inner{padding-block:52px 12px}
+  .hero h1{margin:20px auto 18px}
+  .capture{margin-top:28px}
+  .cap-note{margin-top:14px}
+  .demo-app{margin-top:40px}
+  .guide{margin-top:14px}
+  .logos{padding-block:36px 24px}
+  .stat-band{margin-bottom:28px}
+  .po{row-gap:16px}
+  .po-arrow{height:40px}
+  .mods{gap:16px}
+  .mod-list{gap:12px}
+  #lifeDemo .tabs{gap:12px}
+  .cmp-t tr{margin-bottom:12px}
+  .faq{gap:12px}
+  .faq-grid{gap:28px}
+  .upsell{gap:12px}
+  .close{margin-block:12px 80px}
+  .close p{margin:18px auto 26px}
+  footer.site{padding-block:44px 120px}
+}
+
+@media (max-width:720px){.tbl-box{min-height:340px}}
 </style>
 </head>
 <body>
@@ -1657,7 +1696,9 @@ html{scrollbar-gutter:stable}
     const p=Object.entries(by).map(([n,L])=>{const main=L.find(d=>!d.type)||L[0];const has=s=>L.some(d=>d.st===s);
       return {n,cc:main.cc,city:main.city,dev:main.id,items:L,st:has('leaver')?['Leaving Fri','t-warn']:has('returning')?['Offboarding','t-acc']:has('shipping')?['Device on its way','t-acc']:['Active','t-ok']};});
     hires.forEach(h=>p.push({n:h.n,cc:h.cc,city:h.city,hire:1,st:[h.start+' · needs a laptop','t-warn']}));
-    done.forEach(n=>p.push({n,cc:'BR',city:'São Paulo',st:['Offboarded','t-ok'],gone:1}));return p;}
+    done.forEach(n=>p.push({n,cc:'BR',city:'São Paulo',st:['Offboarded','t-ok'],gone:1}));
+    const rank=x=>x.st[0]==='Leaving Fri'||x.st[0]==='Offboarding'?0:x.hire?1:x.gone?3:2;
+    return p.map((x,i)=>[x,i]).sort((a,b)=>rank(a[0])-rank(b[0])||a[1]-b[1]).map(a=>a[0]);}
   const openRet=()=>devs.filter(d=>d.st==='leaver'||d.st==='returning');
   function guide(html){const g=$('tryLabel');g.innerHTML='<span class="tl-dot"></span><span>'+html+'</span>';g.classList.remove('bump');void g.offsetWidth;g.classList.add('bump');}
   function counts(){$('nDev').textContent=devs.length;$('nPpl').textContent=people().filter(p=>!p.gone).length;const r=openRet().length;$('nRet').textContent=r||'';$('nRet').classList.toggle('alert',r>0);}
@@ -1681,7 +1722,8 @@ html{scrollbar-gutter:stable}
           ${icon(d)}
           <span class="tx"><b>${esc(d.name)}</b><small>${esc(d.retFrom||d.who)} · ${esc(d.city)}</small><span class="pbar"><i style="width:${pct}%"></i></span></span>
           <span class="rt"><span class="tag ${step>=RSTEPS.length?'t-ok':step<0?'t-warn':'t-acc'}">${lbl}</span></span></button>`;}).join('');}
-    $('tbl').innerHTML=html?html+`<p class="endnote">${filt==='All'?'End of list.':'That’s everything in '+filt+'.'}</p>`
+    const shown=(html.match(/class="trow/g)||[]).length, cap=innerWidth<=720?4:99, extra=Math.max(0,shown-cap);
+    $('tbl').innerHTML=html?html+`<p class="endnote">${extra?'+'+extra+' more in the full app':filt==='All'?'End of list.':'That’s everything in '+filt+'.'}</p>`
       :`<p class="empty">${view==='returns'?'No returns open. Go to People and offboard someone.':'Nothing in '+filt+' yet.'}</p>`;
   }
   const appEl=$('try');
