@@ -1365,6 +1365,29 @@ html{scrollbar-gutter:stable}
 @keyframes hubPulse{50%{box-shadow:0 0 0 16px var(--accent-soft),0 0 0 32px rgba(238,242,254,.35)}}
 @media (prefers-reduced-motion:reduce){.off-hub span{animation:none}}
 @media (max-width:900px){.offers{grid-template-columns:1fr}.off-hub{order:-1;flex-direction:row}.off-hub span{width:52px;height:52px;box-shadow:0 0 0 8px var(--accent-soft)}.off-hub svg{width:24px;height:24px}}
+
+/* ===== desktop: one idea per screen, sticky How-it-works heading, bold proof band ===== */
+@media (min-width:1021px){
+  main section.block{padding-block:clamp(120px,14vh,170px)!important;min-height:min(100vh,1100px);display:flex;flex-direction:column;justify-content:center}
+  main section.block#life{display:block;min-height:0}
+  #life .sec-head{position:sticky;top:68px;z-index:6;margin:0 -24px 32px;padding:20px 24px 18px;background:linear-gradient(#fff 82%,rgba(255,255,255,0));align-items:end}
+  #life .sec-head h2{font-size:clamp(30px,3.2vw,42px)}
+  #life .pinbox{top:calc(68px + var(--lh,170px) + 12px)}
+  #proof .sec-head h2{color:#fff}
+}
+#proof .proof-band{background:radial-gradient(120% 140% at 0% 0%,#22348f 0%,#0f1a4a 55%,#0a1236 100%);border-radius:32px;padding:clamp(36px,5vw,72px);color:#fff;position:relative;overflow:hidden}
+#proof .proof-band::after{content:"“";position:absolute;right:36px;top:-40px;font-size:340px;line-height:1;color:rgba(255,255,255,.05);font-weight:700;pointer-events:none}
+#proof .proof-band .eyebrow{color:#9db3ff}
+#proof .proof-band .sec-head h2{color:#fff}
+#proof .proof-band .sec-head>p{color:rgba(255,255,255,.72)}
+#proof .quotes{grid-template-columns:1.5fr 1fr 1fr;align-items:stretch}
+#proof blockquote{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);transition:background .3s var(--ease),transform .3s var(--ease)}
+#proof blockquote:hover{background:rgba(255,255,255,.11);transform:translateY(-3px)}
+#proof blockquote p{color:#fff}
+#proof blockquote:first-child p{font-size:clamp(22px,2.1vw,28px);line-height:1.35}
+#proof blockquote footer{color:rgba(255,255,255,.65)}
+#proof blockquote footer b{color:#fff}
+@media (max-width:1020px){#proof .quotes{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1593,13 +1616,16 @@ html{scrollbar-gutter:stable}
   </section>
 
   <section class="block wrap" id="proof" style="padding-top:0">
+    <div class="proof-band">
     <div class="sec-head sr">
       <div><p class="eyebrow">Customers</p><h2>What IT and founders say after switching</h2></div>
+      <p>Teams across Europe and Asia run their IT assets on ZenAdmin.</p>
     </div>
     <div class="quotes swipe">
       <blockquote class="sr"><p>“I only regret not outsourcing this earlier. We streamlined IT admin and removed security risks.”</p><footer><span class="av">VS</span><span><b>Valerian Seither</b>Co-Founder</span></footer></blockquote>
       <blockquote class="sr"><p>“ZenAdmin took onboarding, offboarding, app provisioning and device security off my table.”</p><footer><span class="av">PK</span><span><b>Patrick Kern</b>CTO</span></footer></blockquote>
       <blockquote class="sr"><p>“It's easy to procure and keep track of our device inventory. Our global team is productive from day one.”</p><footer><span class="av">RC</span><span><b>Robert Cook</b>IT Manager</span></footer></blockquote>
+    </div>
     </div>
   </section>
 
@@ -2215,5 +2241,6 @@ html{scrollbar-gutter:stable}
 
 })();
 </script>
+<script>(()=>{const h=document.querySelector('#life .sec-head');if(!h)return;const set=()=>document.documentElement.style.setProperty('--lh',h.offsetHeight+'px');set();new ResizeObserver(set).observe(h);})();</script>
 </body>
 </html>
