@@ -1769,14 +1769,14 @@ html{scrollbar-gutter:stable}
         <p class="bk-l">What do you want help with?</p>
         <div class="bk-chips" id="bkNeed"><button type="button">Tracking IT assets</button><button type="button">Returns &amp; wipes</button><button type="button">Storage &amp; reissue</button><button type="button">Buying or leasing</button><button type="button">Recycling</button></div>
         <p class="bk-l">How many employees?</p>
-        <div class="bk-chips" id="bkSize"><button type="button">1–50</button><button type="button">51–200</button><button type="button">201–1,000</button><button type="button">1,000+</button></div>
+        <div class="bk-chips" id="bkSize"><button type="button">1–10</button><button type="button">11–50</button><button type="button">51–200</button><button type="button">201–500</button><button type="button">501+</button></div>
         <button class="btn btn-pri bk-go" id="bkNext" type="button" disabled>Continue <span class="arr">→</span></button>
       </div>
       <form class="bk-step" data-step="1" id="bkForm" novalidate>
         <p class="bk-k"><button type="button" class="bk-back" id="bkBack">← Back</button> Step 2 of 2</p><h3>Where should we send the invite?</h3>
         <label class="fld"><span>Full name</span><input id="fName" name="fullName" autocomplete="name" placeholder="Jane Smith"></label>
         <label class="fld"><span>Work email</span><input id="fEmail" name="workEmail" type="email" autocomplete="email" placeholder="jane@company.com"><em class="err" id="eEmail"></em></label>
-        <div class="fld-row"><label class="fld cc"><span>Code</span><input id="fCode" name="countryCode" autocomplete="tel-country-code" placeholder="+49"></label><label class="fld"><span>Phone (optional)</span><input id="fPhone" name="phoneNumber" type="tel" autocomplete="tel-national" placeholder="151 2345 6789"></label></div>
+        <div class="fld-row"><label class="fld cc"><span>Code</span><input id="fCode" name="countryCode" autocomplete="tel-country-code" placeholder="+49"></label><label class="fld"><span>Phone</span><input id="fPhone" name="phoneNumber" type="tel" autocomplete="tel-national" placeholder="151 2345 6789"></label></div>
         <label class="fld"><span>Company</span><input id="fCo" name="companyName" autocomplete="organization" placeholder="Company name"></label>
         <p class="err" id="eForm" role="alert"></p>
         <button class="btn btn-pri bk-go" type="submit">Book my demo <span class="arr">→</span></button>
@@ -2193,11 +2193,11 @@ html{scrollbar-gutter:stable}
   $('bkBack').addEventListener('click',()=>goStep(0));
   {const ro=new ResizeObserver(()=>{if(bk.classList.contains('open'))fitBody();});steps.forEach(st=>ro.observe(st));}
   $('bkForm').addEventListener('submit',e=>{e.preventDefault();let ok=true;
-    [['fName',v=>v.length>1],['fEmail',v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)],['fCo',v=>v.length>1]].forEach(([id,t])=>{const el=$(id);el.classList.remove('bad');void el.offsetWidth;const good=t(el.value.trim());if(!good){el.classList.add('bad');ok=false;}});
+    [['fName',v=>v.length>1],['fEmail',v=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)],['fCo',v=>v.length>1],['fCode',v=>/^\+?\d{1,4}$/.test(v)],['fPhone',v=>v.replace(/\D/g,'').length>=6]].forEach(([id,t])=>{const el=$(id);el.classList.remove('bad');void el.offsetWidth;const good=t(el.value.trim());if(!good){el.classList.add('bad');ok=false;}});
     const em=$('fEmail').value.trim();
     $('eEmail').textContent=!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)?'Enter an email like jane@company.com.':/@(gmail|yahoo|hotmail|outlook|icloud)\./i.test(em)?'Use your work email so we can find your company.':'';
     $('eForm').textContent=ok?'':'Fill in the highlighted fields.';
-    ['fName','fEmail','fCo'].forEach(id=>$(id).setAttribute('aria-invalid',$(id).classList.contains('bad')));
+    ['fName','fEmail','fCo','fCode','fPhone'].forEach(id=>$(id).setAttribute('aria-invalid',$(id).classList.contains('bad')));
     fitBody(); if(!ok||$('eEmail').textContent){const b=bk.querySelector('.bad');b&&b.focus();return;}
     $('bkName').textContent=$('fName').value.trim().split(' ')[0];$('bkMail').textContent=em;$('bkSum').textContent=[...need].join(', ').toLowerCase()+' for a team of '+size;track('demo_form_submit',{form_step:2,needs:[...need].join('|'),team_size:size});goStep(2);});
 
